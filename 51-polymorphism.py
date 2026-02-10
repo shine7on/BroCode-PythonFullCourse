@@ -7,7 +7,7 @@
 
 # abstract method:
 # Any class inheriting from Parent must implement abstract methods.
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 class Shape:
     @abstractmethod
     def area(self):
