@@ -63,7 +63,7 @@ employees = [["Name", "Age", "Job"],
              ["Alex", 45, "Unemployed"],
              ["Max", 67, "Scientist"]]
 
-file_path = "output.cvs"
+file_path = "output.csv"
 
 try:
     with open(file_path, "w", newline ="") as file:
