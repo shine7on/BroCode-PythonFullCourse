@@ -15,8 +15,6 @@ class WeatherApp(QWidget):
         self.city_input = QLineEdit(self)
         self.button = QPushButton("Get Weather", self)
         self.api_key = os.getenv("API_KEY")
-        print(self.api_key)
-
 
         self.temp_label = QLabel(self)
         self.icon = QLabel(self)
@@ -25,43 +23,76 @@ class WeatherApp(QWidget):
     
     def initUI(self):
         self.setWindowTitle("Weather App")
-        self.setGeometry(500,300,300,500)
+        self.setGeometry(500,300,300,400)
 
         vbox = QVBoxLayout()
+        input_layout = QVBoxLayout()
 
-        vbox.addWidget(self.city)
-        vbox.addWidget(self.city_input)
-        vbox.addWidget(self.button)
+        input_layout.addWidget(self.city)
+        input_layout.addWidget(self.city_input, alignment=Qt.AlignHCenter)
 
-        vbox.addWidget(self.temp_label)
-        vbox.addWidget(self.icon)
-        vbox.addWidget(self.weather_label)
+        self.city.setFixedHeight(self.city.height()+3)
 
+        vbox.addLayout(input_layout)
+        vbox.addWidget(self.button, alignment=Qt.AlignHCenter)
+        self.button.setFixedWidth(200)
+        self.city_input.setFixedWidth(200)
+    
+        # create display layout
+        display_layout = QVBoxLayout()
+
+        display_layout.addWidget(self.temp_label)
+        display_layout.addWidget(self.icon)
+        display_layout.addWidget(self.weather_label)
+
+        vbox.addLayout(display_layout)
         self.setLayout(vbox)
-        self.city.setAlignment(Qt.AlignCenter)
-        self.city_input.setAlignment(Qt.AlignCenter)
+
+        self.city.setAlignment(Qt.AlignHCenter)
+        self.city_input.setAlignment(Qt.AlignHCenter)
         self.temp_label.setAlignment(Qt.AlignCenter)
         self.icon.setAlignment(Qt.AlignCenter)
         self.weather_label.setAlignment(Qt.AlignCenter)
 
         self.button.clicked.connect(self.get_weather)
 
+
+        self.city.setObjectName("title")
+        self.temp_label.setObjectName("temp")
+        self.weather_label.setObjectName("desc")
+        self.icon.setObjectName("icon")
+
+
         self.setStyleSheet('''
-            QLabel {
-                font-size: 30px;
+            QWidget {
+                font-family: Arial;
+                font-size: 20px;
+            }
+            QLabel#title {
+                font-size: 20px;
+                font-weight: 600;
+                color: #222;
+            }
+            QLabel#temp {
+                font-size: 20px;
+                font-weight: 600;
+                color: #222;
             }
             QLineEdit {
-                padding: 10;
                 font-size: 20px;
+                padding: 10px;
+                border: 2px solid black;
+                border-radius: 6px;
+                background: white;
             }
             QPushButton {
-                padding: 10;
-                font-size: 20px;
+                padding: 5;
+                font-size: 13px;
+                border: 2px solid grey;
             }
             QPushButton:hover {
                 background-color: pink;
             }
-            
         ''')
     
     def get_weather(self):
@@ -72,18 +103,28 @@ class WeatherApp(QWidget):
 
         if response.status_code == 200:
             print("Data retrieved!")
-            weather_data = response_json["weather"][0]
-            temp_data = response_json["main"]
-            self.temp_label.setText(f"{int((temp_data["temp"])- 273.15):.0f} °C") # Kelvin to Celsius
-            self.weather_label.setText(weather_data["description"])
-
-            icon_url = f"https://openweathermap.org/payload/api/media/file/{weather_data["icon"]}.png"
-            image = QPixmap()
-            image.loadFromData(requests.get(icon_url).content)
-            self.icon.setPixmap(image)
-
+            self.display(response_json)
         else:
             self.reset()
+            self.error(f"{response.status_code}: Failed to get data")
+    
+    def display(self, data):
+        weather_data = data["weather"][0]
+        temp_data = data["main"]
+        self.temp_label.setText(f"{int((temp_data["temp"])- 273.15):.0f} °C") # Kelvin to Celsius
+        self.temp_label.setStyleSheet("font-size: 30px;" "color: black;")
+        self.weather_label.setText(weather_data["description"])
+
+        icon_url = f"https://openweathermap.org/payload/api/media/file/{weather_data["icon"]}.png"
+        image = QPixmap()
+        image.loadFromData(requests.get(icon_url).content)
+        image.scaled(70,70, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.icon.setPixmap(image)
+    
+
+    def error(self, message):
+        self.temp_label.setText(message)
+        self.temp_label.setStyleSheet("font-size: 18px;" "color: red;")
 
     def reset(self):
         self.temp_label.clear()
