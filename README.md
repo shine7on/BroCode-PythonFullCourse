@@ -1,10 +1,10 @@
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
-![Course](https://img.shields.io/badge/Course-BroCode-green)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
 # 🐍 BroCode Python Full Course
 
-This repository contains my completed practice files from the **Bro Code Python Full Course (12 hours)**.
+This repository contains my completed practice files from the [Bro Code Python Full Course (12 Hours)](https://youtu.be/ix9cRaBkVe0?si=o-7TRskfac0EaVx-).
+
 
 Each numbered Python file corresponds to a lesson from the course, covering:
 
@@ -20,22 +20,23 @@ The main highlight of this repository is the final project:
 
 # 🌦 Weather App (PyQt5)
 
-A desktop weather application built using **Python and PyQt5**, powered by the **OpenWeather API**.
+A desktop weather application built using **Python and PyQt5**, powered by the [OpenWeather API](https://openweathermap.org)
 
 ## 📸 Demo
-
-![Weather App Demo](weather-demo.png)
+<p align="center">
+  <img src="weather-demo.png" width="350">
+</p>
 
 ---
 
 ## 🔎 Features
 
 - Accepts a city name as user input  
-- Sends a real-time API request to OpenWeather  
-- Parses JSON weather data  
+- Sends a real-time API request to OpenWeather 
+- Parses JSON weather data
 - Displays:
   - 🌡 Temperature (converted from Kelvin to Celsius)
-  - 🌤 Weather description
+  - 🌤 Weather description (got from OpenWeather website)
   - 🖼 Dynamic weather icon
 - Handles invalid API responses gracefully  
 - Stores API key securely using `.env`  
@@ -54,13 +55,13 @@ A desktop weather application built using **Python and PyQt5**, powered by the *
 
 ## ▶️ How to Run
 
-### 1️⃣ Install dependencies
+### 1. Install dependencies
 
 ```bash
 pip install PyQt5 requests python-dotenv
 ```
 
-### 2️⃣ Create a `.env` file in the project root
+### 2. Create a `.env` file in the project root
 
 ```
 API_KEY=your_openweather_api_key
@@ -68,17 +69,11 @@ API_KEY=your_openweather_api_key
 
 > ⚠️ Do not commit your API key to GitHub.
 
-### 3️⃣ Run the application
+### 3️. Run the application
 
 ```bash
 python "77-weather app.py"
 ```
-
----
-
-## 📚 Course Reference
-
-[Bro Code Python Full Course (12 Hours)](https://www.youtube.com/watch?v=XKHEtdqhLK8)
 
 ---
 
