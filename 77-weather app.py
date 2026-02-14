@@ -1,18 +1,22 @@
 import sys
 import requests
+import os
+from dotenv import load_dotenv
 from PyQt5.QtWidgets import (QApplication, QLabel, QWidget,
                              QLineEdit, QPushButton, QVBoxLayout)
 from PyQt5.QtCore import Qt # alignment
 from PyQt5.QtGui import QPixmap
-# API: e71c41c4c525438f44a635423b7f5669
 
 class WeatherApp(QWidget):
     def __init__(self):
         super().__init__()
+        load_dotenv() 
         self.city = QLabel("Enter city name:", self)
         self.city_input = QLineEdit(self)
         self.button = QPushButton("Get Weather", self)
-        self.api_key = "e71c41c4c525438f44a635423b7f5669"
+        self.api_key = os.getenv("API_KEY")
+        print(self.api_key)
+
 
         self.temp_label = QLabel(self)
         self.icon = QLabel(self)
