@@ -22,9 +22,8 @@ The main highlight of this repository is the final project:
 
 A desktop weather application built using **Python and PyQt5**, powered by the [OpenWeather API](https://openweathermap.org)
 
-## 📸 Demo
 <p align="center">
-  <img src="weather-demo.png" width="350">
+  <img src="final_project/weather-demo2.png" width="350">
 </p>
 
 ---
@@ -53,7 +52,7 @@ A desktop weather application built using **Python and PyQt5**, powered by the [
 
 ---
 
-## ▶️ How to Run
+## How to Run
 
 ### 1. Install dependencies
 
@@ -69,7 +68,7 @@ API_KEY=your_openweather_api_key
 
 > ⚠️ Do not commit your API key to GitHub.
 
-### 3️. Run the application
+### 3. Run the application
 
 ```bash
 python "77-weather app.py"
